@@ -5,7 +5,7 @@ MAINTAINER David Bauske <david.bauske@voltstorage.com>
 WORKDIR /root
 
 RUN apt-get update
-RUN apt-get install -y git wget make libncurses-dev flex bison gperf python python-serial
+RUN apt-get install -y git wget make libncurses-dev flex bison gperf python python-serial cmake
 
 # Install ESP32 toolchain
 RUN mkdir -p /root/esp
