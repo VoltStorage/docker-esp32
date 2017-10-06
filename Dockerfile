@@ -25,9 +25,9 @@ RUN \
 # Install ESP32 toolchain
 RUN mkdir -p /root/esp
 WORKDIR /root/esp
-RUN wget https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
-RUN tar xfvz xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
-RUN rm xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
+RUN wget https://dl.espressif.com/dl/xtensa-esp32-elf-linux32-1.22.0-73-ge28a011-5.2.0.tar.gz
+RUN tar xfvz xtensa-esp32-elf-linux32-1.22.0-73-ge28a011-5.2.0.tar.gz
+RUN rm xtensa-esp32-elf-linux32-1.22.0-73-ge28a011-5.2.0.tar.gz
 
 ENV PATH "$PATH:/root/esp/xtensa-esp32-elf/bin"
 RUN echo "export PATH=$PATH:/root/esp/xtensa-esp32-elf/bin" >> /root/.bashrc
