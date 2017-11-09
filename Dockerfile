@@ -11,8 +11,8 @@ RUN apt-get install -y git wget make libncurses-dev flex bison gperf python pyth
 RUN \
   cd /tmp && \
   wget https://nodejs.org/dist/v8.9.1/node-v8.9.1.tar.gz && \
-  tar xvzf node-latest.tar.gz && \
-  rm -f node-latest.tar.gz && \
+  tar xvzf node-v8.9.1.tar.gz && \
+  rm -f node-v8.9.1.tar.gz && \
   cd node-v* && \
   ./configure && \
   CXX="g++ -Wno-unused-local-typedefs" make && \
