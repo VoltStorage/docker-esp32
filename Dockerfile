@@ -10,7 +10,7 @@ RUN apt-get install -y git wget make libncurses-dev flex bison gperf python pyth
 # install node
 RUN \
   cd /tmp && \
-  wget http://nodejs.org/dist/node-latest.tar.gz && \
+  wget https://nodejs.org/dist/v8.9.1/node-v8.9.1.tar.gz && \
   tar xvzf node-latest.tar.gz && \
   rm -f node-latest.tar.gz && \
   cd node-v* && \
