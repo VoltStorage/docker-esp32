@@ -35,7 +35,7 @@ RUN echo "export PATH=$PATH:/root/esp/xtensa-esp32-elf/bin" >> /root/.bashrc
 # Install ESP-IDF
 RUN git clone --recursive https://github.com/espressif/esp-idf.git
 WORKDIR /root/esp/esp-idf
-RUN git checkout v2.1
+RUN git checkout -b v2.1 origin/release/v2.1
 RUN git submodule update
 
 ENV IDF_PATH "/root/esp/esp-idf"
