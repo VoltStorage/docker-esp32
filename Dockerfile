@@ -26,9 +26,9 @@ RUN \
 # Install ESP32 toolchain
 RUN mkdir -p /root/esp
 WORKDIR /root/esp
-RUN wget https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
-RUN tar xfvz xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
-RUN rm xtensa-esp32-elf-linux64-1.22.0-61-gab8375a-5.2.0.tar.gz
+RUN wget https://dl.espressif.com/dl/xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
+RUN tar xfvz xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
+RUN rm xtensa-esp32-elf-linux64-1.22.0-80-g6c4433a-5.2.0.tar.gz
 
 ENV PATH "$PATH:/root/esp/xtensa-esp32-elf/bin"
 RUN echo "export PATH=$PATH:/root/esp/xtensa-esp32-elf/bin" >> /root/.bashrc
@@ -36,7 +36,7 @@ RUN echo "export PATH=$PATH:/root/esp/xtensa-esp32-elf/bin" >> /root/.bashrc
 # Install ESP-IDF
 RUN git clone --recursive https://github.com/espressif/esp-idf.git
 WORKDIR /root/esp/esp-idf
-RUN git checkout -b v2.1 origin/release/v2.1
+RUN git checkout -b v3.0 origin/release/v3.0
 RUN git submodule update
 
 ENV IDF_PATH "/root/esp/esp-idf"
