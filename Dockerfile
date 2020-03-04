@@ -1,27 +1,16 @@
-FROM ubuntu:xenial
+FROM ubuntu:bionic
 
-# This installs the ESP32 IDF with the xtensa toolchain. Current branch for ESP-IDF is 2.1, the corresponding xtensa version is 61.
+# This installs the ESP32 IDF with the xtensa toolchain.
 MAINTAINER David Bauske <david.bauske@voltstorage.com>
 
 WORKDIR /root
 
 RUN apt-get update
-RUN apt-get install -y git wget make libncurses-dev flex bison gperf python python-serial cmake g++
+RUN apt-get install -y git wget libncurses-dev flex bison gperf python python-pip python-setuptools python-serial python-cryptography python-future python-pyparsing cmake ninja-build ccache g++ curl
 
 # install node
-RUN \
-  cd /tmp && \
-  wget https://nodejs.org/dist/v8.9.1/node-v8.9.1.tar.gz && \
-  tar xvzf node-v8.9.1.tar.gz && \
-  rm -f node-v8.9.1.tar.gz && \
-  cd node-v* && \
-  ./configure && \
-  CXX="g++ -Wno-unused-local-typedefs" make && \
-  CXX="g++ -Wno-unused-local-typedefs" make install && \
-  cd /tmp && \
-  rm -rf /tmp/node-v* && \
-  npm install -g npm && \
-  printf '\n# Node.js\nexport PATH="node_modules/.bin:$PATH"' >> /root/.bashrc
+RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
+RUN apt-get install -y nodejs
 
 # Install ESP32 toolchain
 RUN mkdir -p /root/esp
@@ -34,12 +23,18 @@ ENV PATH "$PATH:/root/esp/xtensa-esp32-elf/bin"
 RUN echo "export PATH=$PATH:/root/esp/xtensa-esp32-elf/bin" >> /root/.bashrc
 
 # Install ESP-IDF
-RUN git clone --recursive https://github.com/espressif/esp-idf.git
+RUN git clone -b release/v3.3 --recursive https://github.com/espressif/esp-idf.git
 WORKDIR /root/esp/esp-idf
-RUN git checkout -b v3.0 origin/release/v3.0
-RUN git submodule update
+
+# The new CMake-based build system of ESP-IDF aggressively checks the compiler and doesn't allow us to use
+# any other compiler than their "xtensa" models. We'll stop this check from failing the build by replacing
+# the severity level ...
+RUN sed -i -e 's/FATAL_ERROR/WARNING/g' tools/cmake/idf_functions.cmake
 
 ENV IDF_PATH "/root/esp/esp-idf"
-RUN echo "export IDF_PATH=/root/esp/esp-idf" >> ~/.bashrc
+RUN echo "export IDF_PATH=/root/esp/esp-idf" >> /root/.bashrc
+
+# Install Python dependencies
+RUN python2 -m pip install --user -r $IDF_PATH/requirements.txt
 
 WORKDIR /
