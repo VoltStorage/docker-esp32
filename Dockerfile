@@ -37,4 +37,10 @@ RUN echo "export IDF_PATH=/root/esp/esp-idf" >> /root/.bashrc
 # Install Python dependencies
 RUN python2 -m pip install --user -r $IDF_PATH/requirements.txt
 
+# Install clang-format, version 11
+RUN wget -O - https://apt.llvm.org/llvm-snapshot.gpg.key | apt-key add -
+RUN add-apt-repository "deb http://apt.llvm.org/bionic/   llvm-toolchain-bionic  main"
+RUN apt update
+RUN apt install -y clang-format clang-format-11
+
 WORKDIR /
