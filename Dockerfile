@@ -6,7 +6,7 @@ MAINTAINER David Bauske <david.bauske@voltstorage.com>
 WORKDIR /root
 
 RUN apt-get update
-RUN apt-get install -y git wget libncurses-dev flex bison gperf python python-pip python-setuptools python-serial python-cryptography python-future python-pyparsing cmake ninja-build ccache g++ curl
+RUN apt-get install -y git wget libncurses-dev flex bison gperf python python-pip python-setuptools python-serial python-cryptography python-future python-pyparsing cmake ninja-build ccache g++ curl software-properties-common
 
 # install node
 RUN curl -sL https://deb.nodesource.com/setup_12.x | bash -
